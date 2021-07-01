@@ -51,4 +51,19 @@ class ProductTest extends TestCase
         $handler = new UpdateProductMessageHandler($productRepository);
         $handler($message);
     }
+
+    public function testDispatchUpdateProductMessageDoesNotUpdatesProductWhenProductDoesNotExists(): void
+    {
+        $productRepository = $this->createStub(ProductRepository::class);
+        $productRepository->method('find')
+            ->willReturn(null);
+
+        $message = new UpdateProductMessage(1, "this is test string");
+
+        $productRepository->expects(self::exactly(0))
+            ->method('save');
+
+        $handler = new UpdateProductMessageHandler($productRepository);
+        $handler($message);
+    }
 }
