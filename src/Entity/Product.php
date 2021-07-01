@@ -21,7 +21,6 @@ class Product
     /**
      * @ORM\Column(type="string", length=100)
      * @Assert\NotBlank()
-     *
      */
     private $name;
 
@@ -56,5 +55,4 @@ class Product
     {
         $this->name = $name;
     }
-
 }
